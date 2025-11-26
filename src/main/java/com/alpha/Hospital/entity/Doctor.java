@@ -4,10 +4,12 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
 public class Doctor {
+	@Id
 	private int id;
 	private String name;
 	private String specialization;
@@ -19,6 +21,7 @@ public class Doctor {
 	}
 	public Doctor(int id, String name, String specialization, List<Patient> plist) {
 		super();
+		
 		this.id = id;
 		this.name = name;
 		this.specialization = specialization;
