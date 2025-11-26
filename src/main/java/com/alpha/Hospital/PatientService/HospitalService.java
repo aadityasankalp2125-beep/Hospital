@@ -36,4 +36,15 @@ public class HospitalService {
 	    return rs;
 	}
 
+	public ResponseStructure<Doctor> deletedoctor(int id) {
+	    Doctor existing = hr.findById(id).orElseThrow(() -> new DoctorNotFoundExpection());
+	    hr.deleteById(id);
+	    ResponseStructure<Doctor> rs = new ResponseStructure<>();
+		rs.setStatuscode(HttpStatus.OK.value());
+		rs.setMessage("Doctor deleted successfully");
+		rs.setData(existing);
+
+		return rs;
+	}
+
 }

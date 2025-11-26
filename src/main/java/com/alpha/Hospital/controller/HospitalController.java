@@ -1,6 +1,7 @@
 package com.alpha.Hospital.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,4 +25,29 @@ public ResponseStructure<Doctor> saveDoctor(@RequestBody Doctor d){
 public ResponseStructure<Doctor> findDoctor(@RequestParam int id){
 	return hs.finddoctor(id);
 }
+
+@DeleteMapping("/deletedoc")
+public ResponseStructure<Doctor> deleteDoctor(@RequestParam int id){
+	return hs.deletedoctor(id);
 }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
