@@ -29,7 +29,7 @@ public class HospitalService {
 	public ResponseStructure<Doctor> finddoctor(int id) {
 		Doctor doc = hr.findById(id).orElseThrow(() -> new DoctorNotFoundExpection());
 		ResponseStructure<Doctor> rs = new ResponseStructure<>();
-		rs.setStatuscode(HttpStatus.FOUND.value());
+		rs.setStatuscode(HttpStatus.OK.value());
 		rs.setMessage("Doctor with id " +id+ " found successfully");
 		rs.setData(doc);
 		
