@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.alpha.Hospital.ResponseStructure;
 import com.alpha.Hospital.PatientRepository.HospitalRepository;
 import com.alpha.Hospital.entity.Doctor;
+import com.alpha.Hospital.excepitions.DoctorNotFoundExpection;
 
 @Service
 public class HospitalService {
@@ -23,6 +24,16 @@ public class HospitalService {
 	        rs.setData(saved);
 
 	        return rs;
+	}
+
+	public ResponseStructure<Doctor> finddoctor(int id) {
+		Doctor doc = hr.findById(id).orElseThrow(() -> new DoctorNotFoundExpection());
+		ResponseStructure<Doctor> rs = new ResponseStructure<>();
+		rs.setStatuscode(HttpStatus.FOUND.value());
+		rs.setMessage("Doctor with id " +id+ " found successfully");
+		rs.setData(doc);
+		
+	    return rs;
 	}
 
 }
