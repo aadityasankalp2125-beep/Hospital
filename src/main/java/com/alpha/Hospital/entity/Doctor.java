@@ -1,4 +1,4 @@
-package com.alpha.Hospital.entity;
+package com.alpha.hospital.entity;
 
 import java.util.List;
 
@@ -22,49 +22,58 @@ public class Doctor {
 	private String name;
 	@Length(max=20,min=4)
 	private String specialization;
+	
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Patient>plist;
-	@Override
-	public String toString() {
-		return "Doctor [id=" + id + ", name=" + name + ", specialization=" + specialization + ", plist=" + plist + "]";
-	}
-	public Doctor(int id, String name, String specialization, List<Patient> plist) {
+	 private List<Patient> ptlist;
+
+	public Doctor(int id, String name, String specialization, List<Patient> ptlist) {
 		super();
-		
 		this.id = id;
 		this.name = name;
 		this.specialization = specialization;
-		this.plist = plist;
+		this.ptlist = ptlist;
 	}
-	
+
 	public Doctor() {
 		super();
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getSpecialization() {
 		return specialization;
 	}
+
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
 	}
-	public List<Patient> getPlist() {
-		return plist;
+
+	public List<Patient> getPtlist() {
+		return ptlist;
 	}
-	public void setPlist(List<Patient> plist) {
-		this.plist = plist;
+
+	public void setPtlist(List<Patient> ptlist) {
+		this.ptlist = ptlist;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Doctor [id=" + id + ", name=" + name + ", Specialization=" + specialization + ", ptlist=" + ptlist
+				+ "]";
+	}
 
 }

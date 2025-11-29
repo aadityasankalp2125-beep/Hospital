@@ -1,4 +1,4 @@
-package com.alpha.Hospital.controller;
+package com.alpha.hospital.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,53 +9,58 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alpha.Hospital.ResponseStructure;
-import com.alpha.Hospital.PatientService.HospitalService;
-import com.alpha.Hospital.entity.Doctor;
+import com.alpha.hospital.ResponseStructure;
+import com.alpha.hospital.dto.PatientDto;
+import com.alpha.hospital.entity.Doctor;
+import com.alpha.hospital.entity.Patient;
+import com.alpha.hospital.exception.InvalidDataException;
+import com.alpha.hospital.service.HospitalService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class HospitalController {
-@Autowired
-private HospitalService hs;
-@PostMapping("/savedoctor")
-public ResponseStructure<Doctor> saveDoctor(@RequestBody Doctor d){
-	return hs.savedoctor(d);
+	
+	@Autowired
+	private HospitalService hs;
+	
+	@PostMapping("/saveDoctor")
+	public ResponseStructure<Doctor> saveDoctor(@RequestBody @Valid Doctor d)
+	{
+		return hs.saveDoctor(d);
+	}
+	
+	@PostMapping("/savePatient")
+	public ResponseStructure<Patient> savePatient(@RequestBody @Valid Patient p)
+	{
+		return hs.savePatient(p);
+	}
+	
+    @GetMapping("/findDoctor")
+    public ResponseStructure<Doctor> findDoctor(@RequestParam int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException();
+        }
+        return hs.findDoctor(id);
+    }
+    
+	@PutMapping("/updateDoctor")
+	public ResponseStructure<Doctor> updateDoctor(@RequestParam int id,@RequestParam String newname) throws InvalidDataException  {
+		return hs.updateDoctor(id, newname);
+	}
+	
+	@DeleteMapping("/deleteDoctor")
+	public ResponseStructure<String> deleteDoctor(@RequestParam int id) {
+		if (id <= 0) 
+		{
+	        throw new IllegalArgumentException();
+	     }
+	    return hs.deleteDoctor(id);
+	}
+	
+	@PostMapping("/savePatient1")
+	public ResponseStructure<Patient> savePatient1(@RequestBody @Valid PatientDto pdto)
+	{
+		return hs.savePatient1(pdto);
+	}
 }
-
-@GetMapping("/finddoc")
-public ResponseStructure<Doctor> findDoctor(@RequestParam int id){
-	return hs.finddoctor(id);
-}
-
-@DeleteMapping("/deletedoc")
-public ResponseStructure<Doctor> deleteDoctor(@RequestParam int id){
-	return hs.deletedoctor(id);
-}
-@PutMapping("/updateDoctor")
-public void updateDoctor(@RequestParam int id,@RequestParam String newname)
-{
-	hs.updateDoctor(id,newname);
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

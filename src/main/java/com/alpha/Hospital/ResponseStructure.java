@@ -1,27 +1,15 @@
-package com.alpha.Hospital;
+package com.alpha.hospital;
 
-public class ResponseStructure<T> {
-	private int Statuscode;
+public class ResponseStructure <T>{
+	
+	private int statuscode;
 	private String message;
 	private T data;
-	@Override
-	public String toString() {
-		return "ResponseStructure [Statuscode=" + Statuscode + ", message=" + message + ", data=" + data + "]";
-	}
-	public ResponseStructure(int statuscode, String message, T data) {
-		super();
-		Statuscode = statuscode;
-		this.message = message;
-		this.data = data;
-	}
-	public ResponseStructure() {
-		super();
-	}
 	public int getStatuscode() {
-		return Statuscode;
+		return statuscode;
 	}
 	public void setStatuscode(int statuscode) {
-		Statuscode = statuscode;
+		this.statuscode = statuscode;
 	}
 	public String getMessage() {
 		return message;
@@ -35,6 +23,20 @@ public class ResponseStructure<T> {
 	public void setData(T data) {
 		this.data = data;
 	}
+	public ResponseStructure(int statuscode, String message, T data) {
+		super();
+		this.statuscode = statuscode;
+		this.message = message;
+		this.data = data;
+	}
+	public ResponseStructure() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "ResponseStructure [statuscode=" + statuscode + ", message=" + message + ", data=" + data + "]";
+	}
+	
 	
 
 }
