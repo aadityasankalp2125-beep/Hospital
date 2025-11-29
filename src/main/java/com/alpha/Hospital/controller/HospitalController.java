@@ -31,11 +31,11 @@ public class HospitalController {
 	}
 	
 	@PostMapping("/savePatient")
-	public ResponseStructure<Patient> savePatient(@RequestBody @Valid Patient p)
+	public ResponseStructure<Patient> savePatient(@RequestBody @Valid PatientDto p)
 	{
+		System.err.println("THIS IS PATIENT SAVE" + p);
 		return hs.savePatient(p);
 	}
-	
     @GetMapping("/findDoctor")
     public ResponseStructure<Doctor> findDoctor(@RequestParam int id) {
         if (id <= 0) {

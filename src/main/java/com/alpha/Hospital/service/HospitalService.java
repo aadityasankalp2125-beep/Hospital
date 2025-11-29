@@ -19,80 +19,77 @@ public class HospitalService {
 
 	@Autowired
 	private HospitalRepo hr;
-	
+
 	@Autowired
 	private PatientRepo pr;
-	
+
 	public ResponseStructure<Doctor> saveDoctor(Doctor d) {
-		
-		if(hr.existsById(d.getId()))
-		{
+
+		if (hr.existsById(d.getId())) {
 			throw new DoctorFoundException();
-		}		
-		ResponseStructure<Doctor> rs= new ResponseStructure<Doctor>();		
+		}
+		ResponseStructure<Doctor> rs = new ResponseStructure<Doctor>();
 		rs.setStatuscode(HttpStatus.CREATED.value());
 		rs.setMessage("Doctor is saved" + d);
 		rs.setData(d);
 		hr.save(d);
 		return rs;
 	}
-	
-	public ResponseStructure<Patient> savePatient(Patient p) {
-		
-		if(pr.existsById(p.getId()))
-		{
-			throw new DoctorFoundException();
-		}		
-		ResponseStructure<Patient> rs= new ResponseStructure<Patient>();		
-		rs.setStatuscode(HttpStatus.CREATED.value());
-		rs.setMessage("Patient is saved" + p);
-		rs.setData(p);
-		pr.save(p);
-		return rs;
+
+	public ResponseStructure<Patient> savePatient(PatientDto p) {
+
+		Patient pat = new Patient();
+		pat.setName(p.getName());
+		pat.setAge(p.getAge());
+		pat.setDisease(p.getDisease());
+
+		System.out.println(pat);
+
+		return null;
 	}
-	
+
 	public ResponseStructure<Doctor> findDoctor(int id) {
 
-        Doctor d = hr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
+		Doctor d = hr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
 
-        ResponseStructure<Doctor> rs = new ResponseStructure<>();
-        rs.setStatuscode(HttpStatus.FOUND.value());
-        rs.setMessage("Doctor with ID " + id + " found");
-        rs.setData(d);
+		ResponseStructure<Doctor> rs = new ResponseStructure<>();
+		rs.setStatuscode(HttpStatus.FOUND.value());
+		rs.setMessage("Doctor with ID " + id + " found");
+		rs.setData(d);
 
-        return rs;
-    }
-	
-	public ResponseStructure<Doctor> updateDoctor(int id, String newname) throws InvalidDataException {
-	    if (id <= 0) {
-	        throw new IllegalArgumentException("ID cannot be zero or negative");
-	    }
-	    if (newname == null || newname.trim().isEmpty()) {
-	        throw new InvalidDataException();
-	    }
-	    Doctor d = hr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
-
-	    d.setName(newname);  
-	    hr.save(d);   
-	    ResponseStructure<Doctor> rs = new ResponseStructure<>();
-	    rs.setStatuscode(HttpStatus.OK.value());
-	    rs.setMessage("Doctor updated successfully");
-	    rs.setData(d);
-	    return rs;
+		return rs;
 	}
-	
-    public ResponseStructure<String> deleteDoctor(int id) {
 
-        Doctor d = hr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
-        hr.delete(d);
+	public ResponseStructure<Doctor> updateDoctor(int id, String newname) throws InvalidDataException {
+		if (id <= 0) {
+			throw new IllegalArgumentException("ID cannot be zero or negative");
+		}
+		if (newname == null || newname.trim().isEmpty()) {
+			throw new InvalidDataException();
+		}
+		Doctor d = hr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
 
-        ResponseStructure<String> rs = new ResponseStructure<>();
-        rs.setStatuscode(HttpStatus.OK.value());
-        rs.setMessage("Doctor deleted");
-        rs.setData("Doctor with ID " + id + " removed");
+		d.setName(newname);
+		hr.save(d);
+		ResponseStructure<Doctor> rs = new ResponseStructure<>();
+		rs.setStatuscode(HttpStatus.OK.value());
+		rs.setMessage("Doctor updated successfully");
+		rs.setData(d);
+		return rs;
+	}
 
-        return rs;
-    }
+	public ResponseStructure<String> deleteDoctor(int id) {
+
+		Doctor d = hr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
+		hr.delete(d);
+
+		ResponseStructure<String> rs = new ResponseStructure<>();
+		rs.setStatuscode(HttpStatus.OK.value());
+		rs.setMessage("Doctor deleted");
+		rs.setData("Doctor with ID " + id + " removed");
+
+		return rs;
+	}
 
 	public ResponseStructure<Patient> savePatient1(PatientDto pdto) {
 		Patient p = new Patient();
@@ -107,5 +104,4 @@ public class HospitalService {
 		return rs;
 	}
 
-	
 }
