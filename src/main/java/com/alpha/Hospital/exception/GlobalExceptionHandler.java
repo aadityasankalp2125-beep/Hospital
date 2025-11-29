@@ -21,8 +21,8 @@ public class GlobalExceptionHandler  {
 	{
 		ResponseStructure<String> rs = new ResponseStructure<String>();
 		rs.setStatuscode(HttpStatus.NOT_FOUND.value());
-		rs.setMessage("Doctor NOT FOUND");
-		rs.setData("Doctor NOT FOUND");
+		rs.setMessage("Doctor NOT FOUND IN DATA BASE");
+		rs.setData("Doctor NOT FOUND IN DATA BASE");
 		return rs;
 	}
 	
@@ -31,8 +31,8 @@ public class GlobalExceptionHandler  {
 	{
 		ResponseStructure<String> rs = new ResponseStructure<String>();
 		rs.setStatuscode(HttpStatus.CONFLICT.value());
-		rs.setMessage("Doctor Already Present");
-		rs.setData("Doctor Already Present");
+		rs.setMessage("Doctor Already Present IN DATA BASE");
+		rs.setData("Doctor Already Present IN DATA BASE");
 		return rs;
 	}
 
