@@ -2,16 +2,25 @@ package com.alpha.Hospital.entity;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Doctor {
+	
 	@Id
+	@Positive
+	@Min(value = 100)
 	private int id;
+	@Length(max=10,min=1)
 	private String name;
+	@Length(max=20,min=4)
 	private String specialization;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Patient>plist;
